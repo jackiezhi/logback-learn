@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="ASYNC_APPENDER" class="com.zhi.log.appender.AsyncRollingFileAppender">
+        <file>d://log/wechat.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <Append>true</Append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>d://bak/logs_wechat_%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+            <maxHistory>14</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <charset>utf-8</charset>
+            <!--默认为true，表示日志立即写入到输出流中-->
+            <immediateFlush>true</immediateFlush>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{32}.%M:%L %msg%n%xException%n</pattern>
+        </encoder>
+
+        <!--使用异步参数-->
+        <queueSize>10</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+    </appender>
+
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="ASYNC_APPENDER"/>
+    </root>
+</configuration>
